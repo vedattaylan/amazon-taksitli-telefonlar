@@ -1,0 +1,8 @@
+# node / scraper files
+node_modules/
+*.log
+*.js
+*.json
+
+# mac systems files
+.DS_Store
