@@ -214,42 +214,13 @@
          <a href="https://vedattaylan.github.io/amazon-taksitli-telefonlar/" target="_self" title="Amazon Taksitli Telefonlar"><img src="amazon-logo.png" alt="Amazon" /></a>
         <div>
           <h1>Amazon Taksitli Telefonlar</h1>
-          <p class="text-muted">Toplam:1 telefon bulundu - Son güncelleme tarihi : 28 Ekim 2026 08:24</p>
+          <p class="text-muted">Toplam:0 telefon bulundu - Son güncelleme tarihi : 28 Ekim 2026 10:54</p>
         </div>
       </div>
-      <div class="text-md-end mt-3 mt-md-0">
-        <div class="d-flex align-items-center justify-content-end gap-2 flex-wrap">
-          <div>
-          <label for="sort-select" class="mb-0 fw-semibold">Sırala:</label>
-          <select id="sort-select" class="form-select form-select-sm w-auto">
-            <option value="default">Varsayılan</option>
-            <option value="price-asc">Fiyata göre artan</option>
-            <option value="price-desc">Fiyata göre azalan</option>
-          </select>
-          </div>
-        <div>
-          <label for="brand-filter" class="mb-0 fw-semibold">Marka:</label>
-          <select id="brand-filter" class="form-select form-select-sm w-auto">
-            <!-- Dinamik olarak doldurulacak -->
-          
-</select>
-        </div>
-      </div>
+      
     </header>
     <div>
-     <ol class="list-group list-group-numbered">
-         
-
-<li data-price="36999" data-brand="Diğer" class="list-group-item d-flex justify-content-between align-items-center">
-          <img src="https://m.media-amazon.com/images/I/516pP4JTlAL._AC_UL320_.jpg" class="card-img-top" alt="Honor 400 5G Midnight Black 12Gb Ram 256Gb Memory Akıllı Telefon">
-          <div class="ms-2 me-auto">
-            <h5 class="fw-bold text-muted title">Honor 400 5G Midnight Black 12Gb Ram 256Gb Memory Akıllı Telefon</h5>
-            <span class="price" data-price="36999">36.999,00 TL</span><span class="text-danger ms-2">Stokta sadece 1 adet kaldı.</span>
-          </div>
-          <a href="https://www.amazon.com.tr/Honor-Midnight-Memory-Ak%C4%B1ll%C4%B1-Telefon/dp/B0FZWHRN74" target="_blank" class="btn btn-outline-success">Ürüne Git</a>
-        </li>
-        
-           </ol>
+     <h2 class="text-center text-muted mt-4">Taksitli telefon bulunamadı.</h2>
     </div>
       </div>
 <div class="container p-4 text-muted" id="bilgilendirme" style="font-size: .8em;">
@@ -271,108 +242,7 @@ Bu proje, Amazon Türkiye'de taksitli telefon arayan kullanıcıların ürünler
 </p>
 <p>Bu sitede herhangi bir satış işlemi yapılmaz. Ürün bağlantıları ilgili satıcının sayfasına yönlendirmektedir.</p>
 </div>
-  <button id="scroll-to-top" title="Başa Git" aria-label="Sayfanın başına git">↑</button>
-  <script>
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 300) {
-        scrollToTopBtn.classList.add('show');
-      } else {
-        scrollToTopBtn.classList.remove('show');
-      }
-    });
-
-    scrollToTopBtn.addEventListener('click', function () {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-  const sortSelect = document.getElementById('sort-select');
-  const brandSelect = document.getElementById('brand-filter');
-  const list = document.querySelector('.list-group-numbered');
-
-  const items = Array.from(list.children);
-  const originalItems = items.slice();
-
-  function getItemData(li) {
-    return {
-      li,
-      title: li.querySelector('.title')?.textContent.trim() || '',
-      price: Number(li.dataset.price || 0),
-      brand: li.dataset.brand || ''
-    };
-  }
-
-  function extractBrands() {
-    const brands = new Set();
-
-    items.forEach(li => {
-      if (li.dataset.brand) brands.add(li.dataset.brand);
-    });
-
-    return [...new Set(brands)].sort((a, b) => a.localeCompare(b, 'tr'));
-  }
-
-  function buildBrandSelect() {
-    const optAll = document.createElement('option');
-    optAll.value = 'all';
-    optAll.textContent = 'Tümü';
-    brandSelect.appendChild(optAll);
-
-    extractBrands().forEach(b => {
-      const opt = document.createElement('option');
-      opt.value = b.trim();
-      opt.textContent = titleCase(b.trim());
-      brandSelect.appendChild(opt);
-    });
-  }
-
-  function apply() {
-    const brand = brandSelect.value;
-    const mode = sortSelect.value;
-
-    let data = items.map(getItemData);
-
-    // filtre
-    if (brand !== 'all') {
-      data = data.filter(x => x.brand.toLowerCase() === brand);
-    }
-
-    // sort
-    if (mode === 'price-asc') {
-      data.sort((a, b) => a.price - b.price);
-    } else if (mode === 'price-desc') {
-      data.sort((a, b) => b.price - a.price);
-    } else if (mode === 'alpha-asc') {
-      data.sort((a, b) => a.title.localeCompare(b.title, 'tr'));
-    }
-
-    list.innerHTML = '';
-    data.forEach(x => list.appendChild(x.li));
-  }
-
-  buildBrandSelect();
-
-  sortSelect.addEventListener('change', apply);
-  brandSelect.addEventListener('change', apply);
-
-});
-function titleCase(str) {
-   var splitStr = str.toLowerCase().split(' ');
-   for (var i = 0; i < splitStr.length; i++) {
-       // You do not need to check if i is larger than splitStr length, as your for does that for you
-       // Assign it back to the array
-       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-   }
-   // Directly return the joined string
-   return splitStr.join(' '); 
-}
-  </script>
+  
       </body>
       </html>
       
